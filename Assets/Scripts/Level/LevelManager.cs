@@ -6,24 +6,28 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance { get; private set; }
     
+    public delegate void LevelDataChangedHandler();
+    public event LevelDataChangedHandler OnLevelDataUpdated;
+    
+    [Header("Current Level Data")]
+    [SerializeField] private LevelData currentLevelData;
+    
     [Header("Level Information")]
     [SerializeField] private string levelName = "Level 1";
     [SerializeField] private int levelNumber = 1;
     
     [Header("Completion Requirements")]
-    [Tooltip("Colors required to complete this level. ALL targets of these colors must be completed.")]
     [SerializeField] private LaserColorType[] requiredColors = new LaserColorType[0];
-    
-    [Header("Optional Requirements (Future)")]
-    [SerializeField] private int requiredStars = 0;
-    [SerializeField] private int requiredCollectables = 0;
     [SerializeField] private bool requireAllTargets = false;
+    [SerializeField] private bool requireAllCollectables = false;
     
     [Header("References")]
     [SerializeField] private InteractableDoor exitDoor;
     
     private List<LaserTarget> allTargets = new List<LaserTarget>();
     private Dictionary<LaserColorType, List<LaserTarget>> targetsByColor = new Dictionary<LaserColorType, List<LaserTarget>>();
+    
+    private bool levelCompleteTriggered = false;
     
     void Awake()
     {
@@ -40,19 +44,35 @@ public class LevelManager : MonoBehaviour
     
     void Start()
     {
+        // Load level data from LevelProgressManager if available
+        if (currentLevelData == null)
+        {
+            currentLevelData = LevelProgressManager.Instance?.GetCurrentLevelData();
+        }
+        
+        // Apply level data settings
+        if (currentLevelData != null)
+        {
+            levelName = currentLevelData.levelName;
+            levelNumber = currentLevelData.levelNumber;
+            requiredColors = currentLevelData.requiredColors;
+            requireAllCollectables = currentLevelData.requireAllCollectables;
+        }
+        
         FindAllTargets();
         
-        // Subscribe to target events
         LaserTarget.OnTargetActivated += CheckLevelCompletion;
         LaserTarget.OnTargetDeactivated += CheckLevelCompletion;
         
-        // Find exit door if not assigned
         if (exitDoor == null)
         {
             exitDoor = FindObjectOfType<InteractableDoor>();
         }
         
-        // Initial check
+        // Notify UI of level data
+        OnLevelDataUpdated?.Invoke();
+        
+        Debug.Log($"[LevelManager] Level başlatıldı: {levelName} (#{levelNumber})");
         CheckLevelCompletion();
     }
     
@@ -70,7 +90,6 @@ public class LevelManager : MonoBehaviour
         LaserTarget[] targets = FindObjectsOfType<LaserTarget>();
         allTargets.AddRange(targets);
         
-        // Group targets by color
         foreach (LaserTarget target in allTargets)
         {
             LaserColorType color = target.RequiredColorType;
@@ -83,33 +102,41 @@ public class LevelManager : MonoBehaviour
             targetsByColor[color].Add(target);
         }
         
-        Debug.Log($"[LevelManager] {levelName} - Found {allTargets.Count} targets");
-        // Detailed color breakdown (commented for cleaner logs)
-        /*
-        foreach (var kvp in targetsByColor)
-        {
-            Debug.Log($"  - {kvp.Key}: {kvp.Value.Count} target(s)");
-        }
-        */
+        Debug.Log($"[LevelManager] {levelName} - {allTargets.Count} hedef bulundu");
     }
     
     private void CheckLevelCompletion()
     {
         bool levelComplete = CheckRequirements();
         
-        if (levelComplete)
+        if (levelComplete && !levelCompleteTriggered)
         {
+            levelCompleteTriggered = true;
             UnlockAndOpenDoor();
+            OnLevelCompleted();
         }
-        else
+        else if (!levelComplete && levelCompleteTriggered)
         {
+            levelCompleteTriggered = false;
             LockDoor();
         }
+        
+        // UI'yi güncelle
+        OnLevelDataUpdated?.Invoke();
     }
     
     private bool CheckRequirements()
     {
-        // If no specific colors required, check all targets
+        // Toplanabilir kontrolü
+        if (requireAllCollectables && GameManager.Instance != null)
+        {
+            if (GameManager.Instance.CollectablesCollected < GameManager.Instance.TotalCollectables)
+            {
+                return false;
+            }
+        }
+        
+        // Renk gereksinimleri yoksa
         if (requiredColors == null || requiredColors.Length == 0)
         {
             if (requireAllTargets)
@@ -118,50 +145,41 @@ public class LevelManager : MonoBehaviour
             }
             else
             {
-                // No requirements set - always allow door to open
                 return true;
             }
         }
         
-        // Check each required color
+        // Her gerekli rengi kontrol et
         foreach (LaserColorType requiredColor in requiredColors)
         {
             if (!CheckColorCompleted(requiredColor))
             {
-                // Reduced logging
-            // Debug.Log($"[LevelManager] Required color {requiredColor} not fully completed!");
                 return false;
             }
         }
         
-        Debug.Log($"[LevelManager] All required colors completed!");
+        Debug.Log($"[LevelManager] Tüm gereksinimler tamamlandı!");
         return true;
     }
     
     private bool CheckColorCompleted(LaserColorType color)
     {
-        // Check if we have targets of this color
         if (!targetsByColor.ContainsKey(color))
         {
-            Debug.LogWarning($"[LevelManager] Required color {color} has no targets in scene!");
+            Debug.LogWarning($"[LevelManager] {color} rengi için hedef yok!");
             return false;
         }
         
         List<LaserTarget> colorTargets = targetsByColor[color];
         
-        // ALL targets of this color must be activated
         foreach (LaserTarget target in colorTargets)
         {
             if (!target.IsActivated)
             {
-                // Reduced logging
-            // Debug.Log($"[LevelManager] Color {color}: Target not activated ({colorTargets.IndexOf(target) + 1}/{colorTargets.Count})");
                 return false;
             }
         }
         
-        // Reduced logging - only log completion
-        // Debug.Log($"[LevelManager] Color {color}: All {colorTargets.Count} target(s) completed! ✓");
         return true;
     }
     
@@ -186,7 +204,7 @@ public class LevelManager : MonoBehaviour
             if (!exitDoor.IsOpen)
             {
                 exitDoor.Open();
-                Debug.Log($"[LevelManager] Level {levelName} completed! Door opened.");
+                Debug.Log($"[LevelManager] Level {levelName} tamamlandı! Kapı açıldı.");
             }
         }
     }
@@ -204,24 +222,34 @@ public class LevelManager : MonoBehaviour
         }
     }
     
-    // Public methods for future features
-    public void AddRequiredColor(LaserColorType color)
+    private void OnLevelCompleted()
     {
-        if (!requiredColors.Contains(color))
+        float completionTime = GameManager.Instance != null ? GameManager.Instance.CurrentTime : 60f;
+        int stars = 1; // Default 1 star
+        
+        // Try to get stars from level data
+        if (currentLevelData != null)
         {
-            var colorList = requiredColors.ToList();
-            colorList.Add(color);
-            requiredColors = colorList.ToArray();
+            stars = currentLevelData.CalculateStars(completionTime);
+            LevelProgressManager.Instance?.CompleteLevel(currentLevelData, completionTime, stars);
         }
+        
+        // ALWAYS save to PlayerPrefs directly as backup
+        PlayerPrefs.SetInt($"Level_{levelNumber}_Completed", 1);
+        PlayerPrefs.SetInt($"Level_{levelNumber}_Stars", Mathf.Max(stars, PlayerPrefs.GetInt($"Level_{levelNumber}_Stars", 0)));
+        
+        float existingBestTime = PlayerPrefs.GetFloat($"Level_{levelNumber}_BestTime", 999f);
+        if (completionTime < existingBestTime)
+        {
+            PlayerPrefs.SetFloat($"Level_{levelNumber}_BestTime", completionTime);
+        }
+        
+        PlayerPrefs.Save();
+        
+        Debug.Log($"[LevelManager] Level {levelNumber} tamamlandı ve kaydedildi! Time: {completionTime:F1}s, Stars: {stars}");
     }
     
-    public void RemoveRequiredColor(LaserColorType color)
-    {
-        var colorList = requiredColors.ToList();
-        colorList.Remove(color);
-        requiredColors = colorList.ToArray();
-    }
-    
+    // Public methods
     public int GetTargetCountForColor(LaserColorType color)
     {
         if (targetsByColor.ContainsKey(color))
@@ -238,5 +266,26 @@ public class LevelManager : MonoBehaviour
             return targetsByColor[color].Count(t => t.IsActivated);
         }
         return 0;
+    }
+    
+    // UI için getter metodlar
+    public string GetLevelName()
+    {
+        return levelName;
+    }
+    
+    public int GetLevelNumber()
+    {
+        return levelNumber;
+    }
+    
+    public int GetTotalTargetCount()
+    {
+        return allTargets.Count;
+    }
+    
+    public int GetCompletedTargetCount()
+    {
+        return allTargets.Count(t => t.IsActivated);
     }
 }

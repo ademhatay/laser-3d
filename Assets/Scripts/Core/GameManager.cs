@@ -513,18 +513,18 @@ public class GameManager : MonoBehaviour
         float y = 20;
         float lineHeight = 28;
         
-        // Get level info from LevelManager
+        // Get level info from LevelManager - using clean getter methods
         string levelInfo = "Level 1";
         string targetInfo = $"{activatedTargets}/{requiredTargets}";
         
         if (LevelManager.Instance != null)
         {
-            levelInfo = LevelManager.Instance.GetType().GetProperty("levelName")?.GetValue(LevelManager.Instance)?.ToString() ?? "Level 1";
+            levelInfo = $"{LevelManager.Instance.GetLevelName()} #{LevelManager.Instance.GetLevelNumber()}";
             
-            // Get required color targets count
-            int completedRequired = GetCompletedRequiredTargets();
-            int totalRequired = GetTotalRequiredTargets();
-            targetInfo = $"{completedRequired}/{totalRequired}";
+            // Get target progress
+            int completed = LevelManager.Instance.GetCompletedTargetCount();
+            int total = LevelManager.Instance.GetTotalTargetCount();
+            targetInfo = total > 0 ? $"{completed}/{total}" : "0/0";
         }
         
         // Background box for HUD
@@ -547,54 +547,6 @@ public class GameManager : MonoBehaviour
         
         // Draw Battery/Power Bar
         DrawBatteryBar(x, y, 170, 18);
-    }
-    
-    private int GetCompletedRequiredTargets()
-    {
-        if (LevelManager.Instance == null) return 0;
-        
-        int completed = 0;
-        var requiredColorsField = LevelManager.Instance.GetType().GetField("requiredColors", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-        if (requiredColorsField != null)
-        {
-            LaserColorType[] requiredColors = requiredColorsField.GetValue(LevelManager.Instance) as LaserColorType[];
-            if (requiredColors != null)
-            {
-                foreach (LaserColorType color in requiredColors)
-                {
-                    var method = LevelManager.Instance.GetType().GetMethod("GetCompletedTargetCountForColor");
-                    if (method != null)
-                    {
-                        completed += (int)method.Invoke(LevelManager.Instance, new object[] { color });
-                    }
-                }
-            }
-        }
-        return completed;
-    }
-    
-    private int GetTotalRequiredTargets()
-    {
-        if (LevelManager.Instance == null) return 0;
-        
-        int total = 0;
-        var requiredColorsField = LevelManager.Instance.GetType().GetField("requiredColors", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-        if (requiredColorsField != null)
-        {
-            LaserColorType[] requiredColors = requiredColorsField.GetValue(LevelManager.Instance) as LaserColorType[];
-            if (requiredColors != null)
-            {
-                foreach (LaserColorType color in requiredColors)
-                {
-                    var method = LevelManager.Instance.GetType().GetMethod("GetTargetCountForColor");
-                    if (method != null)
-                    {
-                        total += (int)method.Invoke(LevelManager.Instance, new object[] { color });
-                    }
-                }
-            }
-        }
-        return total;
     }
     
     private void DrawBatteryBar(float x, float y, float width, float height)
