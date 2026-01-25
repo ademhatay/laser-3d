@@ -1,0 +1,90 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/MainMenu/MainMenu.uss?fileID=7433441132597879392&amp;guid=c22a1b0abb1173440b3f83042758b600&amp;type=3#MainMenu"/>
+    <ui:VisualElement name="root" class="menu-root">
+        <ui:VisualElement class="background-solid"/>
+        <ui:VisualElement class="content-wrapper">
+            <ui:VisualElement class="header-section">
+                <ui:VisualElement class="title-container">
+                    <ui:Label text="LASER 3D" class="game-title"/>
+                    <ui:VisualElement class="title-underline"/>
+                </ui:VisualElement>
+                <ui:Label text="Mirror Puzzle Game" class="game-subtitle"/>
+            </ui:VisualElement>
+            <ui:VisualElement class="menu-section">
+                <ui:VisualElement class="buttons-container">
+                    <ui:Button name="playBtn" class="menu-button menu-button-primary">
+                        <ui:VisualElement class="button-content">
+                            <ui:Label text="▶" class="button-icon"/>
+                            <ui:Label text="PLAY" class="button-text"/>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="button-shine"/>
+                    </ui:Button>
+                    <ui:Button name="levelsBtn" class="menu-button">
+                        <ui:VisualElement class="button-content">
+                            <ui:Label text="◈" class="button-icon"/>
+                            <ui:Label text="LEVELS" class="button-text"/>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="button-shine"/>
+                    </ui:Button>
+                    <ui:Button name="settingsBtn" class="menu-button">
+                        <ui:VisualElement class="button-content">
+                            <ui:Label text="⚙" class="button-icon"/>
+                            <ui:Label text="SETTINGS" class="button-text"/>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="button-shine"/>
+                    </ui:Button>
+                    <ui:Button name="quitBtn" class="menu-button menu-button-quit">
+                        <ui:VisualElement class="button-content">
+                            <ui:Label text="✕" class="button-icon"/>
+                            <ui:Label text="QUIT" class="button-text"/>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="button-shine"/>
+                    </ui:Button>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement class="footer-section">
+                <ui:Label text="Version 1.0.0" class="version-text"/>
+                <ui:Label text="© 2025 Laser 3D Studios" class="copyright-text"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="settingsPanel" class="settings-panel" style="display: none;">
+            <ui:VisualElement class="settings-overlay"/>
+            <ui:VisualElement class="settings-container">
+                <ui:VisualElement class="settings-header">
+                    <ui:Label text="⚙ SETTINGS" class="settings-title"/>
+                    <ui:Button name="settingsCloseBtn" class="settings-close-button">
+                        <ui:Label text="✕" class="close-icon"/>
+                    </ui:Button>
+                </ui:VisualElement>
+                <ui:ScrollView class="settings-content">
+                    <ui:VisualElement class="settings-section">
+                        <ui:Label text="🔊 AUDIO" class="settings-section-title"/>
+                        <ui:VisualElement class="settings-row">
+                            <ui:Label text="Audio" class="settings-label"/>
+                            <ui:Toggle name="audioToggle" class="settings-toggle"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement class="settings-section">
+                        <ui:Label text="🖥️ DISPLAY" class="settings-section-title"/>
+                        <ui:VisualElement class="settings-row">
+                            <ui:Label text="Resolution" class="settings-label"/>
+                            <ui:DropdownField name="resolutionDropdown" class="settings-dropdown"/>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="settings-row">
+                            <ui:Label text="Fullscreen" class="settings-label"/>
+                            <ui:Toggle name="fullscreenToggle" class="settings-toggle"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement class="settings-section">
+                        <ui:Label text="🗑️ DATA" class="settings-section-title"/>
+                        <ui:VisualElement class="settings-row">
+                            <ui:Label text="Reset All Data" class="settings-label"/>
+                            <ui:Button name="resetDataBtn" text="RESET" class="settings-reset-button"/>
+                        </ui:VisualElement>
+                        <ui:Label text="This will delete all level progress and user data" class="settings-warning-text"/>
+                    </ui:VisualElement>
+                </ui:ScrollView>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

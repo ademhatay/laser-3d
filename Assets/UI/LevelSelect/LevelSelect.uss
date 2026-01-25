@@ -1,0 +1,292 @@
+/* ===== ROOT & BACKGROUND ===== */
+.level-select-root {
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Solid Fullscreen Background */
+.background-solid {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgb(15, 23, 42);
+}
+
+/* ===== CONTENT WRAPPER ===== */
+.content-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    height: 100%;
+    padding: 40px;
+    align-items: center;
+}
+
+/* ===== HEADER SECTION ===== */
+.header-section {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.title-text {
+    font-size: 48px;
+    color: #ffffff;
+    -unity-font-style: bold;
+    letter-spacing: 4px;
+}
+
+.back-button {
+    width: 120px;
+    height: 50px;
+    background-color: rgba(30, 41, 59, 1);
+    border-width: 2px;
+    border-color: rgba(100, 116, 139, 0.5);
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 18px;
+    -unity-font-style: bold;
+}
+
+.back-button:hover {
+    background-color: rgba(59, 130, 246, 1);
+    border-color: rgba(147, 197, 253, 1);
+}
+
+.back-button:active {
+    background-color: rgba(37, 99, 235, 1);
+}
+
+/* ===== LEVEL SCROLL VIEW ===== */
+.level-scroll-view {
+    flex-grow: 1;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.level-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    padding: 10px;
+}
+
+/* ===== LEVEL BUTTON ===== */
+.level-button {
+    width: 120px;
+    height: 120px;
+    margin: 10px;
+    background-color: rgba(30, 41, 59, 1);
+    border-width: 2px;
+    border-color: rgba(100, 116, 139, 0.5);
+    border-radius: 12px;
+    align-items: center;
+    justify-content: center;
+}
+
+.level-button:hover {
+    background-color: rgba(59, 130, 246, 0.8);
+    border-color: rgba(147, 197, 253, 1);
+}
+
+.level-button:active {
+    background-color: rgba(37, 99, 235, 1);
+}
+
+.level-button-locked {
+    background-color: rgba(20, 20, 20, 1);
+    border-color: rgba(60, 60, 60, 0.5);
+    opacity: 0.5;
+}
+
+.level-button-completed {
+    background-color: rgba(34, 197, 94, 0.3);
+    border-color: rgba(74, 222, 128, 0.8);
+}
+
+.level-number {
+    font-size: 36px;
+    color: #ffffff;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+}
+
+.level-stars {
+    font-size: 16px;
+    color: rgba(255, 215, 0, 1);
+    -unity-text-align: middle-center;
+    margin-top: 4px;
+}
+
+.level-locked-icon {
+    font-size: 48px;
+    color: rgba(150, 150, 150, 1);
+    -unity-text-align: middle-center;
+}
+
+/* ===== LEVEL INFO PANEL ===== */
+.level-info-panel {
+    width: 100%;
+    max-width: 500px;
+    background-color: rgba(30, 41, 59, 0.95);
+    border-width: 2px;
+    border-color: rgba(59, 130, 246, 0.5);
+    border-radius: 16px;
+    padding: 30px;
+    align-items: center;
+}
+
+.level-name-label {
+    font-size: 32px;
+    color: #ffffff;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    margin-bottom: 16px;
+}
+
+.level-description-label {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.8);
+    -unity-text-align: middle-center;
+    margin-bottom: 20px;
+    white-space: normal;
+}
+
+.stars-container {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.star {
+    font-size: 32px;
+    color: rgba(150, 150, 150, 1);
+    margin: 0 4px;
+}
+
+.star-filled {
+    color: rgba(255, 215, 0, 1);
+}
+
+.stats-container {
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+.stats-label {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    -unity-text-align: middle-left;
+    white-space: normal;
+}
+
+.play-level-button {
+    width: 100%;
+    height: 60px;
+    background-color: rgba(59, 130, 246, 1);
+    border-width: 2px;
+    border-color: rgba(147, 197, 253, 1);
+    border-radius: 12px;
+    color: #ffffff;
+    font-size: 22px;
+    -unity-font-style: bold;
+    letter-spacing: 2px;
+}
+
+.play-level-button:hover {
+    background-color: rgba(96, 165, 250, 1);
+    border-color: rgba(191, 219, 254, 1);
+}
+
+.play-level-button:active {
+    background-color: rgba(37, 99, 235, 1);
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .content-wrapper {
+        max-width: 900px;
+        padding: 30px;
+    }
+    
+    .title-text {
+        font-size: 40px;
+    }
+    
+    .level-button {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .level-number {
+        font-size: 32px;
+    }
+}
+
+/* Mobile Landscape */
+@media (max-width: 768px) {
+    .content-wrapper {
+        padding: 20px;
+    }
+    
+    .title-text {
+        font-size: 32px;
+        letter-spacing: 2px;
+    }
+    
+    .back-button {
+        width: 100px;
+        height: 45px;
+        font-size: 16px;
+    }
+    
+    .level-button {
+        width: 90px;
+        height: 90px;
+        margin: 8px;
+    }
+    
+    .level-number {
+        font-size: 28px;
+    }
+    
+    .level-info-panel {
+        max-width: 100%;
+        padding: 20px;
+    }
+}
+
+/* Mobile Portrait */
+@media (max-width: 480px) {
+    .header-section {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 20px;
+    }
+    
+    .back-button {
+        margin-top: 10px;
+    }
+    
+    .level-button {
+        width: 80px;
+        height: 80px;
+        margin: 6px;
+    }
+    
+    .level-number {
+        font-size: 24px;
+    }
+}

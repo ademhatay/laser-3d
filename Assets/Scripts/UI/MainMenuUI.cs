@@ -5,11 +5,6 @@ using TMPro;
 
 public class MainMenuUI : MonoBehaviour
 {
-    [Header("Scene Settings")]
-    [SerializeField] private string gameSceneName = "GameScene";
-    [SerializeField] private int gameSceneIndex = 1;
-    [SerializeField] private bool useSceneName = true;
-    
     [Header("UI References")]
     [SerializeField] private Button playButton;
     [SerializeField] private Button levelSelectButton;

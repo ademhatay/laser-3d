@@ -66,7 +66,7 @@ public class LevelManager : MonoBehaviour
         
         if (exitDoor == null)
         {
-            exitDoor = FindObjectOfType<InteractableDoor>();
+            exitDoor = FindFirstObjectByType<InteractableDoor>();
         }
         
         // Notify UI of level data
@@ -87,7 +87,7 @@ public class LevelManager : MonoBehaviour
         allTargets.Clear();
         targetsByColor.Clear();
         
-        LaserTarget[] targets = FindObjectsOfType<LaserTarget>();
+        LaserTarget[] targets = FindObjectsByType<LaserTarget>(FindObjectsSortMode.None);
         allTargets.AddRange(targets);
         
         foreach (LaserTarget target in allTargets)
@@ -235,8 +235,11 @@ public class LevelManager : MonoBehaviour
         }
         
         // ALWAYS save to PlayerPrefs directly as backup
+        int previousStars = PlayerPrefs.GetInt($"Level_{levelNumber}_Stars", 0);
+        int newStars = Mathf.Max(stars, previousStars);
+        
         PlayerPrefs.SetInt($"Level_{levelNumber}_Completed", 1);
-        PlayerPrefs.SetInt($"Level_{levelNumber}_Stars", Mathf.Max(stars, PlayerPrefs.GetInt($"Level_{levelNumber}_Stars", 0)));
+        PlayerPrefs.SetInt($"Level_{levelNumber}_Stars", newStars);
         
         float existingBestTime = PlayerPrefs.GetFloat($"Level_{levelNumber}_BestTime", 999f);
         if (completionTime < existingBestTime)
@@ -244,9 +247,25 @@ public class LevelManager : MonoBehaviour
             PlayerPrefs.SetFloat($"Level_{levelNumber}_BestTime", completionTime);
         }
         
+        // Calculate and save TotalStars
+        int totalStars = CalculateTotalStars();
+        PlayerPrefs.SetInt("TotalStars", totalStars);
+        
         PlayerPrefs.Save();
         
-        Debug.Log($"[LevelManager] Level {levelNumber} tamamlandı ve kaydedildi! Time: {completionTime:F1}s, Stars: {stars}");
+        Debug.Log($"[LevelManager] Level {levelNumber} tamamlandı ve kaydedildi! Time: {completionTime:F1}s, Stars: {stars}, TotalStars: {totalStars}");
+    }
+    
+    private int CalculateTotalStars()
+    {
+        int total = 0;
+        // Load all level stars from PlayerPrefs
+        for (int i = 1; i <= 10; i++) // Check up to 10 levels
+        {
+            int stars = PlayerPrefs.GetInt($"Level_{i}_Stars", 0);
+            total += stars;
+        }
+        return total;
     }
     
     // Public methods

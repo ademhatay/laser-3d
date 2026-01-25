@@ -1,0 +1,621 @@
+/* ===== ROOT & BACKGROUND ===== */
+.menu-root {
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Solid Fullscreen Background */
+.background-solid {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgb(15, 23, 42);
+}
+
+/* ===== CONTENT WRAPPER ===== */
+.content-wrapper {
+    width: 100%;
+    max-width: 600px;
+    height: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 60px 40px;
+}
+
+/* ===== HEADER SECTION ===== */
+.header-section {
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.title-container {
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.game-title {
+    font-size: 72px;
+    color: #ffffff;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    letter-spacing: 6px;
+    margin-bottom: 16px;
+}
+
+.title-underline {
+    width: 140px;
+    height: 4px;
+    background-color: rgba(59, 130, 246, 1);
+    border-radius: 2px;
+}
+
+.game-subtitle {
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.85);
+    -unity-font-style: normal;
+    -unity-text-align: middle-center;
+    letter-spacing: 2px;
+    margin-top: 12px;
+}
+
+/* ===== MENU SECTION ===== */
+.menu-section {
+    flex-grow: 1;
+    justify-content: center;
+    width: 100%;
+}
+
+.buttons-container {
+    width: 100%;
+    align-items: center;
+}
+
+/* ===== MENU BUTTONS ===== */
+.menu-button {
+    width: 100%;
+    max-width: 400px;
+    height: 70px;
+    margin-bottom: 16px;
+    background-color: rgba(30, 41, 59, 1);
+    border-radius: 12px;
+    border-width: 2px;
+    border-color: rgba(100, 116, 139, 0.5);
+    padding: 0;
+    overflow: hidden;
+}
+
+/* Clear Hover State */
+.menu-button:hover {
+    background-color: rgba(59, 130, 246, 1);
+    border-color: rgba(147, 197, 253, 1);
+}
+
+.menu-button:active {
+    background-color: rgba(37, 99, 235, 1);
+}
+
+/* Primary Button (Play) */
+.menu-button-primary {
+    background-color: rgba(59, 130, 246, 1);
+    border-color: rgba(147, 197, 253, 1);
+    height: 80px;
+}
+
+.menu-button-primary:hover {
+    background-color: rgba(96, 165, 250, 1);
+    border-color: rgba(191, 219, 254, 1);
+}
+
+.menu-button-primary:active {
+    background-color: rgba(37, 99, 235, 1);
+}
+
+/* Quit Button */
+.menu-button-quit {
+    background-color: rgba(51, 65, 85, 1);
+    border-color: rgba(148, 163, 184, 0.5);
+}
+
+.menu-button-quit:hover {
+    background-color: rgba(239, 68, 68, 1);
+    border-color: rgba(248, 113, 113, 1);
+}
+
+.menu-button-quit:active {
+    background-color: rgba(220, 38, 38, 1);
+}
+
+/* Button Content */
+.button-content {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.button-icon {
+    font-size: 26px;
+    color: rgba(255, 255, 255, 1);
+    margin-right: 14px;
+}
+
+.button-text {
+    font-size: 22px;
+    color: #ffffff;
+    -unity-font-style: bold;
+    letter-spacing: 2px;
+}
+
+/* Remove shine effect */
+.button-shine {
+    display: none;
+}
+
+/* ===== FOOTER SECTION ===== */
+.footer-section {
+    align-items: center;
+    margin-top: 30px;
+    width: 100%;
+}
+
+.version-text {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.5);
+    -unity-text-align: middle-center;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.copyright-text {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.4);
+    -unity-text-align: middle-center;
+    letter-spacing: 1px;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+/* Tablet & Small Desktop */
+@media (max-width: 1024px) {
+    .content-wrapper {
+        max-width: 550px;
+        padding: 50px 30px;
+    }
+    
+    .game-title {
+        font-size: 64px;
+        letter-spacing: 5px;
+    }
+    
+    .game-subtitle {
+        font-size: 18px;
+    }
+    
+    .menu-button {
+        max-width: 380px;
+        height: 65px;
+    }
+    
+    .menu-button-primary {
+        height: 75px;
+    }
+    
+    .button-text {
+        font-size: 20px;
+    }
+    
+    .button-icon {
+        font-size: 24px;
+    }
+}
+
+/* Mobile Landscape & Small Tablets */
+@media (max-width: 768px) {
+    .content-wrapper {
+        max-width: 480px;
+        padding: 40px 24px;
+    }
+    
+    .game-title {
+        font-size: 52px;
+        letter-spacing: 4px;
+    }
+    
+    .game-subtitle {
+        font-size: 16px;
+        letter-spacing: 1.5px;
+    }
+    
+    .title-underline {
+        width: 120px;
+        height: 3px;
+    }
+    
+    .menu-button {
+        max-width: 340px;
+        height: 60px;
+        margin-bottom: 14px;
+    }
+    
+    .menu-button-primary {
+        height: 70px;
+    }
+    
+    .button-text {
+        font-size: 18px;
+        letter-spacing: 1.5px;
+    }
+    
+    .button-icon {
+        font-size: 22px;
+        margin-right: 12px;
+    }
+}
+
+/* Mobile Portrait */
+@media (max-width: 480px) {
+    .content-wrapper {
+        max-width: 100%;
+        padding: 32px 20px;
+    }
+    
+    .header-section {
+        margin-bottom: 30px;
+    }
+    
+    .game-title {
+        font-size: 42px;
+        letter-spacing: 3px;
+    }
+    
+    .game-subtitle {
+        font-size: 14px;
+        letter-spacing: 1px;
+    }
+    
+    .title-underline {
+        width: 100px;
+        height: 3px;
+    }
+    
+    .menu-button {
+        max-width: 100%;
+        height: 56px;
+        margin-bottom: 12px;
+        border-radius: 10px;
+    }
+    
+    .menu-button-primary {
+        height: 64px;
+    }
+    
+    .button-text {
+        font-size: 16px;
+        letter-spacing: 1px;
+    }
+    
+    .button-icon {
+        font-size: 20px;
+        margin-right: 10px;
+    }
+    
+    .version-text {
+        font-size: 12px;
+    }
+    
+    .copyright-text {
+        font-size: 11px;
+    }
+}
+
+/* Very Small Devices */
+@media (max-width: 360px) {
+    .content-wrapper {
+        padding: 24px 16px;
+    }
+    
+    .game-title {
+        font-size: 36px;
+        letter-spacing: 2px;
+    }
+    
+    .game-subtitle {
+        font-size: 13px;
+    }
+    
+    .menu-button {
+        height: 52px;
+    }
+    
+    .menu-button-primary {
+        height: 60px;
+    }
+    
+    .button-text {
+        font-size: 15px;
+    }
+    
+    .button-icon {
+        font-size: 18px;
+        margin-right: 8px;
+    }
+}
+
+/* ===== SETTINGS PANEL ===== */
+.settings-panel {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.settings-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+}
+
+.settings-container {
+    width: 90%;
+    max-width: 600px;
+    max-height: 85%;
+    background-color: rgba(30, 41, 59, 0.98);
+    border-radius: 16px;
+    border-width: 2px;
+    border-color: rgba(59, 130, 246, 0.5);
+    padding: 0;
+    overflow: hidden;
+}
+
+.settings-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 28px;
+    border-bottom-width: 2px;
+    border-bottom-color: rgba(59, 130, 246, 0.3);
+    background-color: rgba(15, 23, 42, 0.8);
+}
+
+.settings-title {
+    font-size: 32px;
+    color: #ffffff;
+    -unity-font-style: bold;
+    letter-spacing: 3px;
+}
+
+.settings-close-button {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(239, 68, 68, 0.2);
+    border-radius: 8px;
+    border-width: 2px;
+    border-color: rgba(239, 68, 68, 0.5);
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.settings-close-button:hover {
+    background-color: rgba(239, 68, 68, 0.4);
+    border-color: rgba(239, 68, 68, 0.8);
+}
+
+.settings-close-button:active {
+    background-color: rgba(220, 38, 38, 0.6);
+}
+
+.close-icon {
+    font-size: 20px;
+    color: #ffffff;
+}
+
+.settings-content {
+    flex-grow: 1;
+    padding: 20px 28px;
+    overflow: auto;
+}
+
+.settings-section {
+    margin-bottom: 32px;
+}
+
+.settings-section-title {
+    font-size: 20px;
+    color: rgba(59, 130, 246, 1);
+    -unity-font-style: bold;
+    margin-bottom: 16px;
+    letter-spacing: 1.5px;
+}
+
+.settings-row {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom-width: 1px;
+    border-bottom-color: rgba(100, 116, 139, 0.2);
+}
+
+.settings-label {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.9);
+    -unity-font-style: normal;
+}
+
+/* iOS Style Toggle */
+.settings-toggle {
+    width: 51px;
+    height: 31px;
+    background-color: rgba(142, 142, 147, 1);
+    border-radius: 15.5px;
+    border-width: 0px;
+    padding: 0px;
+    margin: 0px;
+    -unity-background-scale-mode: stretch-to-fill;
+    overflow: visible;
+}
+
+.settings-toggle:hover {
+    background-color: rgba(152, 152, 157, 1);
+}
+
+.settings-toggle:checked {
+    background-color: rgba(52, 199, 89, 1);
+}
+
+.settings-toggle:checked:hover {
+    background-color: rgba(48, 209, 88, 1);
+}
+
+.settings-toggle:active {
+    opacity: 0.8;
+}
+
+/* Toggle Checkmark (Knob) - iOS Style - Perfect Circle */
+.settings-toggle > .unity-toggle__checkmark {
+    width: 27px;
+    height: 27px;
+    min-width: 27px;
+    min-height: 27px;
+    max-width: 27px;
+    max-height: 27px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    margin-left: 2px;
+    margin-top: 2px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+    -unity-background-scale-mode: stretch-to-fill;
+    position: absolute;
+    transition-property: margin-left, margin-right;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+    border-width: 0px;
+    padding: 0px;
+    overflow: hidden;
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0);
+}
+
+/* Hide checkmark icon/image inside the knob - make it pure white circle */
+.settings-toggle > .unity-toggle__checkmark > .unity-image {
+    display: none;
+    visibility: hidden;
+}
+
+.settings-toggle > .unity-toggle__checkmark > * {
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+}
+
+/* Hide any nested elements */
+.settings-toggle > .unity-toggle__checkmark > * > * {
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.settings-toggle:checked > .unity-toggle__checkmark {
+    margin-left: 22px;
+    margin-right: 2px;
+}
+
+/* Toggle Label (hide default label) */
+.settings-toggle > .unity-toggle__label {
+    display: none;
+}
+
+.settings-dropdown {
+    min-width: 200px;
+    height: 40px;
+    background-color: rgba(51, 65, 85, 1);
+    border-radius: 8px;
+    border-width: 2px;
+    border-color: rgba(100, 116, 139, 0.5);
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.settings-dropdown:hover {
+    border-color: rgba(59, 130, 246, 0.8);
+}
+
+/* Reset Button */
+.settings-reset-button {
+    min-width: 120px;
+    height: 40px;
+    background-color: rgba(239, 68, 68, 0.2);
+    border-width: 2px;
+    border-color: rgba(239, 68, 68, 0.6);
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 16px;
+    -unity-font-style: bold;
+    letter-spacing: 1px;
+    transition-property: background-color, border-color;
+    transition-duration: 0.2s;
+}
+
+.settings-reset-button:hover {
+    background-color: rgba(239, 68, 68, 0.4);
+    border-color: rgba(239, 68, 68, 0.9);
+}
+
+.settings-reset-button:active {
+    background-color: rgba(220, 38, 38, 0.6);
+    border-color: rgba(220, 38, 38, 1);
+}
+
+/* Warning Text */
+.settings-warning-text {
+    font-size: 12px;
+    color: rgba(239, 68, 68, 0.8);
+    margin-top: 8px;
+    margin-left: 0px;
+    -unity-text-align: middle-left;
+    letter-spacing: 0.5px;
+}
+
+/* Responsive Settings Panel */
+@media (max-width: 768px) {
+    .settings-container {
+        width: 95%;
+        max-height: 90%;
+    }
+    
+    .settings-header {
+        padding: 20px 24px;
+    }
+    
+    .settings-title {
+        font-size: 28px;
+    }
+    
+    .settings-content {
+        padding: 16px 24px;
+    }
+    
+    .settings-section-title {
+        font-size: 18px;
+    }
+    
+    .settings-label {
+        font-size: 16px;
+    }
+    
+    .settings-dropdown {
+        min-width: 150px;
+    }
+}

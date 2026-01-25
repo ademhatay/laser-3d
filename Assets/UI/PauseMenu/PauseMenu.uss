@@ -1,0 +1,198 @@
+/* ===== ROOT ===== */
+.pause-menu-root {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Semi-transparent overlay */
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* ===== CONTENT ===== */
+.pause-content {
+    width: 100%;
+    max-width: 500px;
+    align-items: center;
+    padding: 40px;
+    z-index: 10;
+}
+
+/* ===== TITLE ===== */
+.pause-title {
+    font-size: 64px;
+    color: rgba(59, 130, 246, 1);
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    letter-spacing: 4px;
+    margin-bottom: 16px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+.pause-subtitle {
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.8);
+    -unity-text-align: middle-center;
+    letter-spacing: 1px;
+    margin-bottom: 40px;
+}
+
+/* ===== BUTTONS CONTAINER ===== */
+.buttons-container {
+    width: 100%;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+/* ===== PAUSE BUTTONS ===== */
+.pause-button {
+    width: 100%;
+    max-width: 300px;
+    height: 60px;
+    margin-bottom: 16px;
+    background-color: rgba(30, 41, 59, 1);
+    border-width: 2px;
+    border-color: rgba(100, 116, 139, 0.5);
+    border-radius: 12px;
+    color: #ffffff;
+    font-size: 20px;
+    -unity-font-style: bold;
+    letter-spacing: 1px;
+    transition-property: background-color, border-color;
+    transition-duration: 0.2s;
+}
+
+.pause-button:hover {
+    background-color: rgba(59, 130, 246, 1);
+    border-color: rgba(147, 197, 253, 1);
+}
+
+.pause-button:active {
+    background-color: rgba(37, 99, 235, 1);
+}
+
+/* Primary Button (Resume) */
+.pause-button-primary {
+    background-color: rgba(59, 130, 246, 1);
+    border-color: rgba(147, 197, 253, 1);
+    height: 70px;
+    font-size: 22px;
+}
+
+.pause-button-primary:hover {
+    background-color: rgba(96, 165, 250, 1);
+    border-color: rgba(191, 219, 254, 1);
+}
+
+.pause-button-primary:active {
+    background-color: rgba(37, 99, 235, 1);
+}
+
+/* ===== HINT TEXT ===== */
+.hint-text {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.5);
+    -unity-text-align: middle-center;
+    letter-spacing: 1px;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    .pause-content {
+        max-width: 450px;
+        padding: 30px;
+    }
+    
+    .pause-title {
+        font-size: 56px;
+    }
+    
+    .pause-subtitle {
+        font-size: 18px;
+    }
+    
+    .pause-button {
+        max-width: 280px;
+        height: 56px;
+        font-size: 18px;
+    }
+    
+    .pause-button-primary {
+        height: 64px;
+        font-size: 20px;
+    }
+}
+
+/* Mobile Landscape */
+@media (max-width: 768px) {
+    .pause-content {
+        max-width: 400px;
+        padding: 24px;
+    }
+    
+    .pause-title {
+        font-size: 48px;
+        letter-spacing: 2px;
+    }
+    
+    .pause-subtitle {
+        font-size: 16px;
+    }
+    
+    .pause-button {
+        max-width: 100%;
+        height: 52px;
+        font-size: 16px;
+    }
+    
+    .pause-button-primary {
+        height: 60px;
+        font-size: 18px;
+    }
+}
+
+/* Mobile Portrait */
+@media (max-width: 480px) {
+    .pause-content {
+        padding: 20px;
+    }
+    
+    .pause-title {
+        font-size: 40px;
+    }
+    
+    .pause-subtitle {
+        font-size: 14px;
+    }
+    
+    .pause-button {
+        height: 48px;
+        font-size: 15px;
+        margin-bottom: 12px;
+    }
+    
+    .pause-button-primary {
+        height: 56px;
+        font-size: 17px;
+    }
+    
+    .hint-text {
+        font-size: 12px;
+    }
+}

@@ -14,10 +14,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int requiredTargets = 1;
     [SerializeField] private bool requireAllTargets = true;
     
-    [Header("Win Condition")]
-    [SerializeField] private float winDelay = 1.5f; // Delay before showing win screen
-    [SerializeField] private bool autoProgressLevel = false;
-    
     [Header("Collectables")]
     [SerializeField] private int totalCollectables = 0;
     
@@ -28,6 +24,7 @@ public class GameManager : MonoBehaviour
     
     [Header("UI References")]
     [SerializeField] private GameObject pauseMenuUI;
+    [SerializeField] private PauseMenuController pauseMenuController;
     [SerializeField] private GameObject winScreenUI;
     [SerializeField] private GameObject loseScreenUI;
     [SerializeField] private GameObject gameHUD;
@@ -92,7 +89,21 @@ public class GameManager : MonoBehaviour
         // Count collectables if not set
         if (totalCollectables == 0)
         {
-            totalCollectables = FindObjectsOfType<Collectable>().Length;
+            totalCollectables = FindObjectsByType<Collectable>(FindObjectsSortMode.None).Length;
+        }
+        
+        // Auto-find PauseMenuController if not assigned
+        if (pauseMenuController == null)
+        {
+            pauseMenuController = FindFirstObjectByType<PauseMenuController>();
+            if (pauseMenuController != null)
+            {
+                Debug.Log("[GameManager] Auto-found PauseMenuController");
+            }
+            else
+            {
+                Debug.LogWarning("[GameManager] PauseMenuController not found in scene! Pause menu will not work. Make sure PauseMenuUI GameObject exists with PauseMenuController component.");
+            }
         }
         
         // Start game
@@ -122,7 +133,7 @@ public class GameManager : MonoBehaviour
     private void FindAllTargets()
     {
         allTargets.Clear();
-        LaserTarget[] targets = FindObjectsOfType<LaserTarget>();
+        LaserTarget[] targets = FindObjectsByType<LaserTarget>(FindObjectsSortMode.None);
         allTargets.AddRange(targets);
         
         if (requiredTargets == 0)
@@ -169,7 +180,7 @@ public class GameManager : MonoBehaviour
         
         SetGameState(GameState.Playing);
         
-        // Unlock cursor for gameplay
+        // Lock cursor for gameplay
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         
@@ -192,7 +203,16 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         
-        ShowUI(pauseMenuUI);
+        // Show UI Toolkit pause menu if available
+        if (pauseMenuController != null)
+        {
+            pauseMenuController.SetVisible(true);
+        }
+        // Fallback to legacy GameObject UI
+        else if (pauseMenuUI != null)
+        {
+            ShowUI(pauseMenuUI);
+        }
     }
     
     public void ResumeGame()
@@ -206,7 +226,16 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         
-        HideUI(pauseMenuUI);
+        // Hide UI Toolkit pause menu if available
+        if (pauseMenuController != null)
+        {
+            pauseMenuController.SetVisible(false);
+        }
+        // Fallback to legacy GameObject UI
+        else if (pauseMenuUI != null)
+        {
+            HideUI(pauseMenuUI);
+        }
     }
     
     public void WinGame()
@@ -487,8 +516,8 @@ public class GameManager : MonoBehaviour
         }
         else if (currentState == GameState.Paused)
         {
-            DrawOverlay();
-            DrawPauseMenu(centerX, centerY);
+            // Pause menu is now handled by UI Toolkit (PauseMenuController)
+            // No need to draw here
         }
         else if (currentState == GameState.Win)
         {
@@ -573,45 +602,6 @@ public class GameManager : MonoBehaviour
         GUI.Label(new Rect(x, y, width, height), $"{(currentLaserEnergy * 100):F0}%", percentStyle);
     }
     
-    private void DrawPauseMenu(float centerX, float centerY)
-    {
-        // Title
-        titleStyle.normal.textColor = new Color(0.3f, 0.8f, 1f, 1f);
-        GUI.Label(new Rect(centerX - 250, centerY - 180, 500, 80), "⏸ PAUSED", titleStyle);
-        
-        // Subtitle
-        GUI.Label(new Rect(centerX - 200, centerY - 100, 400, 40), "Game is paused", subtitleStyle);
-        
-        // Buttons
-        float buttonWidth = 200;
-        float buttonHeight = 50;
-        float buttonSpacing = 15;
-        float startY = centerY - 20;
-        
-        if (GUI.Button(new Rect(centerX - buttonWidth/2, startY, buttonWidth, buttonHeight), "▶ RESUME", buttonStyle))
-        {
-            ResumeGame();
-        }
-        
-        startY += buttonHeight + buttonSpacing;
-        if (GUI.Button(new Rect(centerX - buttonWidth/2, startY, buttonWidth, buttonHeight), "🔄 RESTART", buttonStyle))
-        {
-            RestartLevel();
-        }
-        
-        startY += buttonHeight + buttonSpacing;
-        if (GUI.Button(new Rect(centerX - buttonWidth/2, startY, buttonWidth, buttonHeight), "🏠 MAIN MENU", buttonStyle))
-        {
-            LoadMainMenu();
-        }
-        
-        // Footer hint
-        GUIStyle hintStyle = new GUIStyle();
-        hintStyle.fontSize = 16;
-        hintStyle.alignment = TextAnchor.MiddleCenter;
-        hintStyle.normal.textColor = new Color(0.5f, 0.5f, 0.5f, 1f);
-        GUI.Label(new Rect(centerX - 200, Screen.height - 60, 400, 30), "Press ESC or P to resume", hintStyle);
-    }
     
     private void DrawWinScreen(float centerX, float centerY)
     {

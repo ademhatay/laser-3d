@@ -1,0 +1,16 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/PauseMenu/PauseMenu.uss?fileID=7433441132597879392&amp;guid=635349b14ee7122419d13c5ea97fb91f&amp;type=3#PauseMenu"/>
+    <ui:VisualElement name="root" class="pause-menu-root">
+        <ui:VisualElement class="overlay"/>
+        <ui:VisualElement class="pause-content">
+            <ui:Label text="⏸ PAUSED" class="pause-title"/>
+            <ui:Label text="Game is paused" class="pause-subtitle"/>
+            <ui:VisualElement class="buttons-container">
+                <ui:Button name="resumeBtn" text="▶ RESUME" class="pause-button pause-button-primary"/>
+                <ui:Button name="restartBtn" text="🔄 RESTART" class="pause-button"/>
+                <ui:Button name="mainMenuBtn" text="🏠 MAIN MENU" class="pause-button"/>
+            </ui:VisualElement>
+            <ui:Label text="Press ESC or P to resume" class="hint-text"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,28 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/LevelSelect/LevelSelect.uss?fileID=7433441132597879392&amp;guid=597e8f436beef424f84e724a2d1a2467&amp;type=3#LevelSelect"/>
+    <ui:VisualElement name="root" class="level-select-root">
+        <ui:VisualElement class="background-solid"/>
+        <ui:VisualElement class="content-wrapper">
+            <ui:VisualElement class="header-section">
+                <ui:Label text="LEVEL SELECT" class="title-text"/>
+                <ui:Button name="backBtn" text="← BACK" class="back-button"/>
+            </ui:VisualElement>
+            <ui:ScrollView name="levelScrollView" class="level-scroll-view">
+                <ui:VisualElement name="levelGrid" class="level-grid"/>
+            </ui:ScrollView>
+            <ui:VisualElement name="levelInfoPanel" class="level-info-panel" style="display: none;">
+                <ui:Label name="levelNameLabel" text="Level 1" class="level-name-label"/>
+                <ui:Label name="levelDescriptionLabel" text="Description" class="level-description-label"/>
+                <ui:VisualElement name="starsContainer" class="stars-container">
+                    <ui:Label name="star1" text="★" class="star star-filled"/>
+                    <ui:Label name="star2" text="☆" class="star"/>
+                    <ui:Label name="star3" text="☆" class="star"/>
+                </ui:VisualElement>
+                <ui:VisualElement name="statsContainer" class="stats-container">
+                    <ui:Label name="statsLabel" text="Stats" class="stats-label"/>
+                </ui:VisualElement>
+                <ui:Button name="playLevelBtn" text="PLAY" class="play-level-button"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

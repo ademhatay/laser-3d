@@ -279,7 +279,7 @@ public class InteractableDoor : MonoBehaviour
                 
             case UnlockCondition.AllTargetsActivated:
                 // Find all targets and check if all are activated
-                LaserTarget[] allTargets = FindObjectsOfType<LaserTarget>();
+                LaserTarget[] allTargets = FindObjectsByType<LaserTarget>(FindObjectsSortMode.None);
                 if (allTargets.Length > 0)
                 {
                     shouldUnlock = true;
@@ -315,7 +315,7 @@ public class InteractableDoor : MonoBehaviour
         {
             case UnlockCondition.AnyTargetActivated:
                 // Check if any target is still active
-                LaserTarget[] allTargets = FindObjectsOfType<LaserTarget>();
+                LaserTarget[] allTargets = FindObjectsByType<LaserTarget>(FindObjectsSortMode.None);
                 shouldLock = true;
                 foreach (var target in allTargets)
                 {
